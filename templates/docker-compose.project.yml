@@ -1,0 +1,52 @@
+version: '2'
+
+networks:
+  back:
+    driver: bridge
+  proxy:
+    external:
+      name: direktkredit-proxy    
+
+volumes:
+  db:
+  upload:
+  images:    
+
+services:
+
+  db:
+    image: mariadb
+    container_name: dk_{{ config.projectId }}_db
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD={{ config.mysqlRootPassword }}
+      - MYSQL_DATABASE=dk_{{ config.projectId }}_db
+      - MYSQL_USER={{ config.projectId }}
+      - MYSQL_PASSWORD= {{ config.mysqlPassword }}
+    networks:
+      - back
+
+  web:
+    build:
+      context: ./habidat
+    container_name: dk_schlor_web
+    restart: unless-stopped
+    environment:
+      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
+      - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
+      - HABIDAT_DK_ADMIN_USERNAME=admin
+      - HABIDAT_DK_ADMIN_AUTH=local
+      - HABIDAT_DK_PORT_HTTP=80
+      - HABIDAT_DK_HTTPS=false
+      - SENDGRID_USER={{ config.sendgridUser }}
+      - SENDGRID_PASSWORD={{ config.sendgridPassword }}
+    volumes:
+      - images:/habidat/public/images
+      - upload:/habidat/upload   
+    ports:
+      - 80
+    networks:
+      - proxy
+      - back
