@@ -1,4 +1,5 @@
 #!/bin/bash
 
-docker create network direktkredit-proxy
+echo "{}" > projects.json
+docker network create direktkredit-proxy
 docker-compose up -d

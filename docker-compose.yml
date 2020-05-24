@@ -12,7 +12,8 @@ volumes:
 services:
 
   nginx:
-    image: habidat/direktkredit
+    image: habidat/direktkredit-nginx
+    container_name: direktkredit-nginx
     restart: unless-stopped
     volumes:
       - certbot-config:/habidat/certbot
@@ -31,6 +32,7 @@ services:
 
   certbot:
     image: certbot/certbot
+    container_name: direktkredit-certbot
     restart: unless-stopped
     volumes:
       - certbot-config:/etc/letsencrypt
