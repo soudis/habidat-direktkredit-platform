@@ -13,12 +13,12 @@ try:
 		exit(1)
 
 	config = {
-		"projectId" = sys.argv[1]
-		"adminEmail" = sys.argv[2]
-		"mysqlRootPassword" = token_hex(20)
-		"mysqlPassword" = token_hex(20)
-		"sendgridUser" = os.environ['SENDGRID_USER']
-		"sendgridPassword" = os.environ['SENDGRID_PASSWORD']
+		"projectId": sys.argv[1],
+		"adminEmail": sys.argv[2],
+		"mysqlRootPassword": token_hex(20),
+		"mysqlPassword": token_hex(20),
+		"sendgridUser": os.environ['SENDGRID_USER'],
+		"sendgridPassword": os.environ['SENDGRID_PASSWORD']
 	}
 	
 	projectPath = 'projects/' +  config.projectId
@@ -31,7 +31,7 @@ try:
 	filename = projectPath + '/docker-compose.yml'
 	template.stream(config=config).dump(filename)
 
-	log.info('Project ' + projectId + ' added')
+	log.info('Generated ' + projectPath + '/docker-compose.yml')
 
 except Exception as e:
 	log.error('Unhandled exception')
