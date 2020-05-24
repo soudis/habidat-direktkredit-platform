@@ -15,8 +15,8 @@ try:
 	config = {
 		"projectId": sys.argv[1],
 		"adminEmail": sys.argv[2],
-		"mysqlRootPassword": token_hex(20),
-		"mysqlPassword": token_hex(20),
+		"mysqlRootPassword": secrets.token_hex(20),
+		"mysqlPassword": secrets.token_hex(20),
 		"sendgridUser": os.environ['SENDGRID_USER'],
 		"sendgridPassword": os.environ['SENDGRID_PASSWORD']
 	}
