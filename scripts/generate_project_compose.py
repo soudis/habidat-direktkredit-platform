@@ -36,3 +36,4 @@ try:
 except Exception as e:
 	log.error('Unhandled exception')
 	log.error(traceback.format_exc())
+	exit(1)

@@ -10,7 +10,8 @@ networks:
 volumes:
   db:
   upload:
-  images:    
+  images:   
+  config: 
 
 services:
 
@@ -29,9 +30,8 @@ services:
       - back
 
   web:
-    build:
-      context: ./habidat
-    container_name: dk_schlor_web
+    image: habidat/direktkredit:mhs
+    container_name: dk_{{ config.projectId }}_web
     restart: unless-stopped
     environment:
       - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
@@ -45,6 +45,7 @@ services:
     volumes:
       - images:/habidat/public/images
       - upload:/habidat/upload   
+      - config:/habidat/config
     ports:
       - 80
     networks:
