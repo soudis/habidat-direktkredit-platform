@@ -38,7 +38,7 @@ services:
       - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_ADMIN_AUTH=local
-      - HABIDAT_DK_PORT_HTTP=80
+      - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
       - SENDGRID_USER={{ config.sendgridUser }}
       - SENDGRID_PASSWORD={{ config.sendgridPassword }}
@@ -47,7 +47,7 @@ services:
       - upload:/habidat/upload   
       - config:/habidat/config
     ports:
-      - 80
+      - 8080
     networks:
       - proxy
       - back

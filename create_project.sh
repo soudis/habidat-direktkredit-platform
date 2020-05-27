@@ -18,5 +18,6 @@ docker-compose -p $1 -f projects/$1/docker-compose.yml up -d
 
 echo "Add project to nginx..."
 docker-compose exec nginx python3 scripts/add_project.py $1 dk_$1_web $3 ${@:4}
+sleep 30
 docker-compose exec nginx python3 scripts/generate_config.py
 
