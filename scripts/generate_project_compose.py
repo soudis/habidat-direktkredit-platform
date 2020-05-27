@@ -8,6 +8,9 @@ try:
 	log.addHandler(logging.StreamHandler(sys.stdout))
 	log.setLevel(logging.INFO)
 
+	file_loader = FileSystemLoader('templates')
+	env = Environment(loader=file_loader)	
+
 	if len(sys.argv) < 3:
 		log.info('Usage: add_project.py <project identifier> <project admin email>')
 		exit(1)
@@ -21,13 +24,13 @@ try:
 		"sendgridPassword": os.environ['SENDGRID_PASSWORD']
 	}
 	
-	projectPath = 'projects/' +  config.projectId
+	projectPath = 'projects/' +  config['projectId']
 
 	if not os.path.exists(projectPath):
 		os.makedirs(projectPath)
 	
-	log.info('Generate single project site %s' % projectId)
-	template = env.get_template('templates/docker-compose.project.yml')
+	log.info('Generate single project site %s' % config['projectId'])
+	template = env.get_template('docker-compose.project.yml')
 	filename = projectPath + '/docker-compose.yml'
 	template.stream(config=config).dump(filename)
 

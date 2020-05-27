@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+
+source settings.env
 
 usage(){
 	echo "Usage: $0 <Project ID> <Admin E-mail Address> <Project DK URL> [<Platform URL> ...]"

@@ -17,31 +17,31 @@ services:
 
   db:
     image: mariadb
-    container_name: dk_{{ config.projectId }}_db
+    container_name: dk_willyfred_db
     restart: unless-stopped
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD={{ config.mysqlRootPassword }}
-      - MYSQL_DATABASE=dk_{{ config.projectId }}_db
-      - MYSQL_USER={{ config.projectId }}
-      - MYSQL_PASSWORD={{ config.mysqlPassword }}
+      - MYSQL_ROOT_PASSWORD=8a82159d60afa884ead4ccfc3f90a167f98566c2
+      - MYSQL_DATABASE=dk_willyfred_db
+      - MYSQL_USER=willyfred
+      - MYSQL_PASSWORD= 470e12f06e3944ada3e3d91cf0314f53a48f641e
     networks:
       - back
 
   web:
     image: habidat/direktkredit:mhs
-    container_name: dk_{{ config.projectId }}_web
+    container_name: dk_willyfred_web
     restart: unless-stopped
     environment:
-      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
-      - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
+      - HABIDAT_DK_DB_URI=mysql://willyfred:470e12f06e3944ada3e3d91cf0314f53a48f641e@dk_willyfred_db/dk_willyfred_db
+      - HABIDAT_DK_ADMIN_EMAIL=florian.humer@gmail.com
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_ADMIN_AUTH=local
       - HABIDAT_DK_PORT_HTTP=80
       - HABIDAT_DK_HTTPS=false
-      - SENDGRID_USER={{ config.sendgridUser }}
-      - SENDGRID_PASSWORD={{ config.sendgridPassword }}
+      - SENDGRID_USER=soudis
+      - SENDGRID_PASSWORD=m4auliman
     volumes:
       - images:/habidat/public/images
       - upload:/habidat/upload   
