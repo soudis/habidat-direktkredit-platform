@@ -40,8 +40,7 @@ services:
       - HABIDAT_DK_ADMIN_AUTH=local
       - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
-      - SENDGRID_USER={{ config.sendgridUser }}
-      - SENDGRID_PASSWORD={{ config.sendgridPassword }}
+      - HABIDAT_DK_SMTP_HOST={{ config.smtpHost }}
     volumes:
       - images:/habidat/public/images
       - upload:/habidat/upload   

@@ -20,8 +20,7 @@ try:
 		"adminEmail": sys.argv[2],
 		"mysqlRootPassword": secrets.token_hex(20),
 		"mysqlPassword": secrets.token_hex(20),
-		"sendgridUser": os.environ['SENDGRID_USER'],
-		"sendgridPassword": os.environ['SENDGRID_PASSWORD']
+		"smtpHost": os.environ['HABIDAT_DK_SMTP_HOST']
 	}
 	
 	projectPath = 'projects/' +  config['projectId']

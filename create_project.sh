@@ -13,6 +13,9 @@ usage(){
 echo "Generating docker-compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
 
+echo "Pulling docker container..."
+docker-compose -p $1 -f projects/$1/docker-compose.yml pull
+
 echo "Creating database docker container..."
 docker-compose -p $1 -f projects/$1/docker-compose.yml up -d db
 sleep 10

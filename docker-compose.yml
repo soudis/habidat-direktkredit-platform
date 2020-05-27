@@ -30,6 +30,16 @@ services:
       options:
         max-size: 50m    
 
+  smtp:
+    image: namshi/smtp
+    container_name: direktkredit-smtp
+    restart: unless-stopped
+    networks:
+      - proxy    
+    logging:
+      options:
+        max-size: 50m    
+
   certbot:
     image: certbot/certbot
     container_name: direktkredit-certbot
