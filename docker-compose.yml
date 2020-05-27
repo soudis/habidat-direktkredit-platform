@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     volumes:
       - certbot-config:/habidat/certbot
-      - certcot-www:/habidat/static/certbot
+      - certcot-www:/var/www/certbot
       - ./projects.json:/habidat/projects.json
     environment:
       - SSL_PROVIDER=certbot
