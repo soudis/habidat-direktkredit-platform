@@ -34,6 +34,8 @@ services:
     image: namshi/smtp
     container_name: direktkredit-smtp
     restart: unless-stopped
+    ports: 
+      - 25
     networks:
       - proxy    
     logging:
