@@ -13,8 +13,11 @@ usage(){
 echo "Generating docker-compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
 
-echo "Creating docker container..."
-docker-compose -p $1 -f projects/$1/docker-compose.yml up -d 
+echo "Creating database docker container..."
+docker-compose -p $1 -f projects/$1/docker-compose.yml up -d db
+sleep 10
+echo "Creating web app docker container..."
+docker-compose -p $1 -f projects/$1/docker-compose.yml up -d web
 
 echo "Creating let's encrypt certificates..."
 case "$LETSENCRYPT_EMAIL" in
@@ -40,6 +43,7 @@ if [[ $# -gt 3 ]]; then
 	done
 fi
 
+echo "Waiting for project app to warm up..."
 sleep 30
 
 echo "Add project to nginx..."
