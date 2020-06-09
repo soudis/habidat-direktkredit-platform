@@ -17,37 +17,38 @@ services:
 
   db:
     image: mariadb
-    container_name: dk_willyfred_db
+    container_name: dk_test_db
     restart: unless-stopped
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=8a82159d60afa884ead4ccfc3f90a167f98566c2
-      - MYSQL_DATABASE=dk_willyfred_db
-      - MYSQL_USER=willyfred
-      - MYSQL_PASSWORD= 470e12f06e3944ada3e3d91cf0314f53a48f641e
+      - MYSQL_ROOT_PASSWORD=8558bd10c296d24feaf79de9f752f374a141baf4
+      - MYSQL_DATABASE=dk_test_db
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=4cfe532310448438eb2ea690368aa342ffd1b2a0
     networks:
       - back
 
   web:
     image: habidat/direktkredit:mhs
-    container_name: dk_willyfred_web
+    container_name: dk_test_web
     restart: unless-stopped
     environment:
-      - HABIDAT_DK_DB_URI=mysql://willyfred:470e12f06e3944ada3e3d91cf0314f53a48f641e@dk_willyfred_db/dk_willyfred_db
+      - HABIDAT_DK_DB_URI=mysql://test:4cfe532310448438eb2ea690368aa342ffd1b2a0@dk_test_db/dk_test_db
       - HABIDAT_DK_ADMIN_EMAIL=florian.humer@gmail.com
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_ADMIN_AUTH=local
-      - HABIDAT_DK_PORT_HTTP=80
+      - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
-      - SENDGRID_USER=soudis
-      - SENDGRID_PASSWORD=m4auliman
+      - HABIDAT_DK_SMTP_HOST=direktkredit-smtp
     volumes:
       - images:/habidat/public/images
       - upload:/habidat/upload   
       - config:/habidat/config
+    depends_on:
+      - db
     ports:
-      - 80
+      - 8080
     networks:
       - proxy
       - back
