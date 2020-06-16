@@ -4,7 +4,7 @@ set -e
 source settings.env
 
 usage(){
-	echo "Usage: $0 <Project ID> <Admin E-mail Address> <Project DK URL> [<Platform URL> ...]"
+	echo "Usage: $0 <Project ID> <Admin E-mail Address> <URL> [<URL> ...]"
 	exit 1
 }
 
@@ -50,6 +50,6 @@ echo "Waiting for project app to warm up..."
 sleep 30
 
 echo "Add project to nginx..."
-docker-compose exec nginx python3 scripts/add_project.py $1 dk_$1_web $3 ${@:4}
+docker-compose exec nginx python3 scripts/add_project.py $1 dk_$1_web ${@:3}
 docker-compose exec nginx python3 scripts/generate_config.py
 
