@@ -30,7 +30,7 @@ services:
       - back
 
   web:
-    image: habidat/direktkredit:mhs
+    image: habidat/direktkredit:stable
     container_name: dk_{{ config.projectId }}_web
     restart: unless-stopped
     environment:
