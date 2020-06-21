@@ -21,7 +21,7 @@ try:
 
     containerPrefix = ''
     if 'HABIDAT_DK_CONTAINER_PREFIX' in os.environ and os.environ['HABIDAT_DK_CONTAINER_PREFIX'] != '':
-    	containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '_'
+    	containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '-'
 
 	config = {
 		"projectId": sys.argv[1],
