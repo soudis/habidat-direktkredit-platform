@@ -32,7 +32,7 @@ services:
       - MYSQL_USER={{ config.projectId }}
       - MYSQL_PASSWORD={{ config.mysqlPassword }}
     networks:
-      - {{ config.projectId }}-back
+      - back
 
   web:
     image: habidat/direktkredit:stable
