@@ -10,6 +10,9 @@ usage(){
 
 [[ $# -lt 3 ]] && usage
 
+export HABIDAT_DK_PROXY_NETWORK=$HABIDAT_DK_PROXY_NETWORK
+export HABIDAT_DK_CONTAINER_PREFIX=$HABIDAT_DK_CONTAINER_PREFIX
+
 echo "Generating docker-compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
 
@@ -51,7 +54,7 @@ fi
 DOMAINS=$(cat domains.txt)
 echo "VIRTUAL_HOST=$DOMAINS" > domains.env
 
-if [ $SELFSIGNED === "true" ]; then
+if [ $SELFSIGNED == "true" ]; then
 	echo "CERT_NAME=$SELFSIGNED_CERT_NAME" >> domains.env	
 else
 	echo "LETSENCRYPT_SINGLE_DOMAIN_CERTS=true" >> domains.env
@@ -63,8 +66,8 @@ echo "Waiting for project app to warm up..."
 sleep 30
 
 echo "Add project to nginx..."
-docker-compose exec nginx python3 scripts/add_project.py $1 dk_$1_web ${@:3}
-docker-compose exec nginx python3 scripts/generate_config.py
+docker-compose exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/add_project.py $1 dk_$1_web ${@:3}
+docker-compose exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
 
 docker-compose up -d
 
