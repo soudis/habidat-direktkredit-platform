@@ -13,10 +13,10 @@ networks:
 {% endif %}
 
 volumes:
-  {{ config.projectId }}-db:
-  {{ config.projectId }}-upload:
-  {{ config.projectId }}-images:   
-  {{ config.projectId }}-config: 
+  db:
+  upload:
+  images:   
+  config: 
 
 services:
 
@@ -25,7 +25,7 @@ services:
     container_name: {{ config.containerPrefix }}{{ config.projectId }}-db
     restart: unless-stopped
     volumes:
-      - {{ config.projectId }}-db:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD={{ config.mysqlRootPassword }}
       - MYSQL_DATABASE=dk_{{ config.projectId }}_db
@@ -48,9 +48,9 @@ services:
       - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
     volumes:
-      - {{ config.projectId }}-images:/habidat/public/images
-      - {{ config.projectId }}-upload:/habidat/upload   
-      - {{ config.projectId }}-config:/habidat/config
+      - images:/habidat/public/images
+      - upload:/habidat/upload   
+      - config:/habidat/config
     depends_on:
       - db
     ports:
