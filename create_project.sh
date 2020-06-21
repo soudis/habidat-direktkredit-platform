@@ -23,10 +23,10 @@ echo "Pulling docker container..."
 docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 pull
 
 echo "Creating database docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 db
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d db
 sleep 10
 echo "Creating web app docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 web
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d web
 
 cd ../..
 
