@@ -17,7 +17,7 @@ services:
 
   db:
     image: mariadb
-    container_name: dk_{{ config.projectId }}_db
+    container_name: {{ config.containerPrefix }}dk_{{ config.projectId }}_db
     restart: unless-stopped
     volumes:
       - db:/var/lib/mysql
@@ -31,12 +31,12 @@ services:
 
   web:
     image: habidat/direktkredit:stable
-    container_name: dk_{{ config.projectId }}_web
+    container_name: {{ config.containerPrefix }}dk_{{ config.projectId }}_web
     restart: unless-stopped
     env_file:
       - ../../settings.env        
     environment:
-      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
+      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@{{ config.containerPrefix }}dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
       - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
       - HABIDAT_DK_PROJECT_ID={{ config.projectId }}
       - HABIDAT_DK_ADMIN_USERNAME=admin

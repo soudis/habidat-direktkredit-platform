@@ -19,12 +19,17 @@ try:
     if 'HABIDAT_DK_PROXY_NETWORK' in os.environ:
     	proxyNetwork = os.environ['HABIDAT_DK_PROXY_NETWORK'];
 
+    containerPrefix = ''
+    if 'HABIDAT_DK_CONTAINER_PREFIX' in os.environ and os.environ['HABIDAT_DK_CONTAINER_PREFIX'] != '':
+    	containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '_'
+
 	config = {
 		"projectId": sys.argv[1],
 		"adminEmail": sys.argv[2],
 		"mysqlRootPassword": secrets.token_hex(20),
 		"mysqlPassword": secrets.token_hex(20),
-		"proxyNetwork": proxyNetwork
+		"proxyNetwork": proxyNetwork,
+		"containerPrefix": containerPrefix
 	}
 	
 	projectPath = 'projects/' +  config['projectId']
