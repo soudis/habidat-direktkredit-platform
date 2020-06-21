@@ -16,12 +16,12 @@ try:
 		exit(1)
 
 	proxyNetwork = 'direktkredit-proxy'
-    if 'HABIDAT_DK_PROXY_NETWORK' in os.environ:
-    	proxyNetwork = os.environ['HABIDAT_DK_PROXY_NETWORK'];
+	if 'HABIDAT_DK_PROXY_NETWORK' in os.environ:
+		proxyNetwork = os.environ['HABIDAT_DK_PROXY_NETWORK'];
 
-    containerPrefix = ''
-    if 'HABIDAT_DK_CONTAINER_PREFIX' in os.environ and os.environ['HABIDAT_DK_CONTAINER_PREFIX'] != '':
-    	containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '-'
+	containerPrefix = ''
+	if 'HABIDAT_DK_CONTAINER_PREFIX' in os.environ and os.environ['HABIDAT_DK_CONTAINER_PREFIX'] != '':
+		containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '-'
 
 	config = {
 		"projectId": sys.argv[1],
