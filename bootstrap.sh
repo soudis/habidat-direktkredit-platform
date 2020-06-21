@@ -2,5 +2,5 @@
 set -e
 
 echo "{}" > projects.json
-docker network create direktkredit-proxy
+echo "" > domains.txt
 docker-compose up -d

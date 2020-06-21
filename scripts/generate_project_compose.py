@@ -15,12 +15,16 @@ try:
 		log.info('Usage: add_project.py <project identifier> <project admin email>')
 		exit(1)
 
+	proxyNetwork = 'direktkredit-proxy'
+    if 'HABIDAT_DK_PROXY_NETWORK' in os.environ:
+    	proxyNetwork = os.environ['HABIDAT_DK_PROXY_NETWORK'];
+
 	config = {
 		"projectId": sys.argv[1],
 		"adminEmail": sys.argv[2],
 		"mysqlRootPassword": secrets.token_hex(20),
 		"mysqlPassword": secrets.token_hex(20),
-		"smtpHost": os.environ['HABIDAT_DK_SMTP_HOST']
+		"proxyNetwork": proxyNetwork
 	}
 	
 	projectPath = 'projects/' +  config['projectId']
@@ -28,7 +32,7 @@ try:
 	if not os.path.exists(projectPath):
 		os.makedirs(projectPath)
 	
-	log.info('Generate single project site %s' % config['projectId'])
+	log.info('Generate project site %s' % config['projectId'])
 	template = env.get_template('docker-compose.project.yml')
 	filename = projectPath + '/docker-compose.yml'
 	template.stream(config=config).dump(filename)

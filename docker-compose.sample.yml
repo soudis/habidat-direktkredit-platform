@@ -19,8 +19,13 @@ services:
       - certbot-config:/habidat/certbot
       - certcot-www:/var/www/certbot
       - ./projects.json:/habidat/projects.json
+      - ./domains.txt:/habidat/domains.txt
+    env_file:
+      - ./domains.env # contains settings for jwilder proxy generation and letsencrypt companion (very handy)
     environment:
       - SSL_PROVIDER=certbot
+#      - SELFSIGNED=$HABIDAT_CREATE_SELFSIGNED # for dev purposes
+#      - SELFSIGNED_CERT_NAME=$CERT_NAME       # for dev purposes
     ports:
       - 80:80
       - 443:443

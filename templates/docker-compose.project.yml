@@ -5,7 +5,7 @@ networks:
     driver: bridge
   proxy:
     external:
-      name: direktkredit-proxy    
+      name: {{ config.proxyNetwork }}   
 
 volumes:
   db:
@@ -33,15 +33,15 @@ services:
     image: habidat/direktkredit:stable
     container_name: dk_{{ config.projectId }}_web
     restart: unless-stopped
+    env_file:
+      - ../../settings.env        
     environment:
       - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
       - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
       - HABIDAT_DK_PROJECT_ID={{ config.projectId }}
       - HABIDAT_DK_ADMIN_USERNAME=admin
-      - HABIDAT_DK_ADMIN_AUTH=local
       - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
-      - HABIDAT_DK_SMTP_HOST={{ config.smtpHost }}
     volumes:
       - images:/habidat/public/images
       - upload:/habidat/upload   

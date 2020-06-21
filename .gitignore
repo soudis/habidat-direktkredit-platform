@@ -2,3 +2,4 @@ projects.json
 docker-compose.yml
 settings.env
 projects/*
+domains.env
