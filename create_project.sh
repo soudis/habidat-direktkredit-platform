@@ -66,8 +66,8 @@ echo "Waiting for project app to warm up..."
 sleep 30
 
 echo "Add project to nginx..."
-docker-compose exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/add_project.py $1 dk_$1_web ${@:3}
-docker-compose exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
+docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/add_project.py $1 dk_$1_web ${@:3}
+docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
 
 docker-compose up -d
 
