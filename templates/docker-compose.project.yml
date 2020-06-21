@@ -1,55 +1,55 @@
 version: '2'
 
 networks:
-  back:
+  {{ config.projectId }}-back:
     driver: bridge
-  proxy:
+  {{ config.projectId }}-proxy:
     external:
       name: {{ config.proxyNetwork }}   
 
 volumes:
-  db:
-  upload:
-  images:   
-  config: 
+  {{ config.projectId }}-db:
+  {{ config.projectId }}-upload:
+  {{ config.projectId }}-images:   
+  {{ config.projectId }}-config: 
 
 services:
 
   db:
     image: mariadb
-    container_name: {{ config.containerPrefix }}dk_{{ config.projectId }}_db
+    container_name: {{ config.containerPrefix }}{{ config.projectId }}-db
     restart: unless-stopped
     volumes:
-      - db:/var/lib/mysql
+      - {{ config.projectId }}-db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD={{ config.mysqlRootPassword }}
       - MYSQL_DATABASE=dk_{{ config.projectId }}_db
       - MYSQL_USER={{ config.projectId }}
       - MYSQL_PASSWORD={{ config.mysqlPassword }}
     networks:
-      - back
+      - {{ config.projectId }}-back
 
   web:
     image: habidat/direktkredit:stable
-    container_name: {{ config.containerPrefix }}dk_{{ config.projectId }}_web
+    container_name: {{ config.containerPrefix }}{{ config.projectId }}-web
     restart: unless-stopped
     env_file:
       - ../../settings.env        
     environment:
-      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@{{ config.containerPrefix }}dk_{{ config.projectId }}_db/dk_{{ config.projectId }}_db
+      - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@{{ config.containerPrefix }}{{ config.projectId }}-db/dk_{{ config.projectId }}_db
       - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
       - HABIDAT_DK_PROJECT_ID={{ config.projectId }}
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
     volumes:
-      - images:/habidat/public/images
-      - upload:/habidat/upload   
-      - config:/habidat/config
+      - {{ config.projectId }}-images:/habidat/public/images
+      - {{ config.projectId }}-upload:/habidat/upload   
+      - {{ config.projectId }}-config:/habidat/config
     depends_on:
       - db
     ports:
       - 8080
     networks:
-      - proxy
-      - back
+      - {{ config.projectId }}-proxy
+      - {{ config.projectId }}-back

@@ -17,13 +17,13 @@ echo "Generating docker-compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
 
 echo "Pulling docker container..."
-docker-compose -p $1 -f projects/$1/docker-compose.yml pull
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX -f projects/$1/docker-compose.yml pull
 
 echo "Creating database docker container..."
-docker-compose -p $1 -f projects/$1/docker-compose.yml up -d db
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX -f projects/$1/docker-compose.yml up -d db
 sleep 10
 echo "Creating web app docker container..."
-docker-compose -p $1 -f projects/$1/docker-compose.yml up -d web
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX -f projects/$1/docker-compose.yml up -d web
 
 if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	echo "Creating let's encrypt certificates..."
