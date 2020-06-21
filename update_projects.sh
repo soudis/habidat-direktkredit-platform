@@ -18,8 +18,8 @@ then
 	for project in * ; do
 		echo "Updating project $project..."    
 		cd $project
-		docker-compose pull 
-		docker-compose up -d
+		docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX pull 
+		docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d
 		cd ..
 	done
 	cd ..
@@ -31,8 +31,8 @@ then
 else
 	echo "Updating project $1..."
 	cd projects/$1
-	docker-compose pull 
-	docker-compose up -d
+	docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX -p pull 
+	docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d
 	cd ../../
 fi
 echo "DONE"
