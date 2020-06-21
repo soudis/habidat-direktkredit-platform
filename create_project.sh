@@ -56,17 +56,6 @@ if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	fi	
 fi
 
-DOMAINS=$(cat domains.txt)
-echo "VIRTUAL_HOST=$DOMAINS" > domains.env
-
-if [ "$SELFSIGNED" == "true" ]; then
-	echo "CERT_NAME=$SELFSIGNED_CERT_NAME" >> domains.env	
-else
-	echo "LETSENCRYPT_SINGLE_DOMAIN_CERTS=true" >> domains.env
-	echo "LETSENCRYPT_HOST=$DOMAINS" >> domains.env
-fi
-
-
 echo "Waiting for project app to warm up..."
 sleep 30
 
@@ -78,6 +67,16 @@ else
 	docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/add_project.py $1 $$1-web ${@:3}
 fi
 docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
+
+DOMAINS=$(cat domains.txt)
+echo "VIRTUAL_HOST=$DOMAINS" > domains.env
+
+if [ "$SELFSIGNED" == "true" ]; then
+	echo "CERT_NAME=$SELFSIGNED_CERT_NAME" >> domains.env	
+else
+	echo "LETSENCRYPT_SINGLE_DOMAIN_CERTS=true" >> domains.env
+	echo "LETSENCRYPT_HOST=$DOMAINS" >> domains.env
+fi
 
 docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d 
 
