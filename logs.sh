@@ -18,6 +18,6 @@ then
 	docker-compose logs $LOG_PARAMETERS nginx
 else
 	cd projects/$1
-	docker-compose logs $LOG_PARAMETERS web
+	docker-compose logs -p $HABIDAT_DK_CONTAINER_PREFIX-$1 $LOG_PARAMETERS web
 	cd ../..
 fi

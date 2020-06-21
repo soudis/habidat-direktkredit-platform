@@ -20,13 +20,13 @@ python3 scripts/generate_project_compose.py $1 $2
 cd projects/$1
 
 echo "Pulling docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX pull
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 pull
 
 echo "Creating database docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX db
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 db
 sleep 10
 echo "Creating web app docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX web
+docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 web
 
 cd ../..
 

@@ -1,13 +1,13 @@
 version: '2'
 
 networks:
-  {{ config.projectId }}-back:
+  back:
     driver: bridge
-  {{ config.projectId }}-proxy:
+  proxy:
     external:
       name: {{ config.proxyNetwork }}   
 {% if config.addDockerNetwork != 'no' %}
-  {{ config.projectId }}-add:
+  add:
     external:
       name: {{ config.addDockerNetwork }}   
 {% endif %}
@@ -56,8 +56,8 @@ services:
     ports:
       - 8080
     networks:
-      - {{ config.projectId }}-proxy
-      - {{ config.projectId }}-back
+      - proxy
+      - back
 {% if config.addDockerNetwork != 'no' %}
-      - {{ config.projectId }}-add
+      - add
 {% endif %}
