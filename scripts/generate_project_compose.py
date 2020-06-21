@@ -23,13 +23,19 @@ try:
 	if 'HABIDAT_DK_CONTAINER_PREFIX' in os.environ and os.environ['HABIDAT_DK_CONTAINER_PREFIX'] != '':
 		containerPrefix = os.environ['HABIDAT_DK_CONTAINER_PREFIX'] + '-'
 
+	addDockerNetwork = 'no'
+	if 'HABIDAT_DK_ADD_DOCKER_NETWORK' in os.environ and os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK'] != '':
+		containerPrefix = os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK']
+
+
 	config = {
 		"projectId": sys.argv[1],
 		"adminEmail": sys.argv[2],
 		"mysqlRootPassword": secrets.token_hex(20),
 		"mysqlPassword": secrets.token_hex(20),
 		"proxyNetwork": proxyNetwork,
-		"containerPrefix": containerPrefix
+		"containerPrefix": containerPrefix,
+		"addDockerNetwork": addDockerNetwork
 	}
 	
 	projectPath = 'projects/' +  config['projectId']

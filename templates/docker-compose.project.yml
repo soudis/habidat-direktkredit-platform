@@ -6,6 +6,11 @@ networks:
   {{ config.projectId }}-proxy:
     external:
       name: {{ config.proxyNetwork }}   
+{% if config.addDockerNetwork != 'no' %}
+  {{ config.projectId }}-add:
+    external:
+      name: {{ config.addDockerNetwork }}   
+{% endif %}
 
 volumes:
   {{ config.projectId }}-db:
@@ -53,3 +58,6 @@ services:
     networks:
       - {{ config.projectId }}-proxy
       - {{ config.projectId }}-back
+{% if config.addDockerNetwork != 'no' %}
+      - {{ config.projectId }}-add
+{% endif %}

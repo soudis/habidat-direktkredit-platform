@@ -12,6 +12,7 @@ usage(){
 
 export HABIDAT_DK_PROXY_NETWORK=$HABIDAT_DK_PROXY_NETWORK
 export HABIDAT_DK_CONTAINER_PREFIX=$HABIDAT_DK_CONTAINER_PREFIX
+export HABIDAT_DK_ADD_DOCKER_NETWORK=$HABIDAT_DK_ADD_DOCKER_NETWORK
 
 echo "Generating docker-compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
