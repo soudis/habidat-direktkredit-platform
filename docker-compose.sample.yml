@@ -19,6 +19,7 @@ services:
       - certbot-config:/habidat/certbot
       - certcot-www:/var/www/certbot
       - ./projects.json:/habidat/projects.json
+      - ./platforms.json:/habidat/platforms.json
       - ./domains.txt:/habidat/domains.txt
     env_file:
       - ./domains.env # contains settings for jwilder proxy generation and letsencrypt companion (very handy)
