@@ -46,7 +46,6 @@ services:
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_ADMIN_PASSWORD={{ config.adminPassword }}      
       - HABIDAT_DK_PROJECT_ID={{ config.projectId }}
-      - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_PORT_HTTP=8080
       - HABIDAT_DK_HTTPS=false
     volumes:
