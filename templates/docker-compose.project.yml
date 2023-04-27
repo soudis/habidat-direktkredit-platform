@@ -43,6 +43,8 @@ services:
     environment:
       - HABIDAT_DK_DB_URI=mysql://{{ config.projectId }}:{{ config.mysqlPassword }}@{{ config.containerPrefix }}{{ config.projectId }}-db/dk_{{ config.projectId }}_db
       - HABIDAT_DK_ADMIN_EMAIL={{ config.adminEmail }}
+      - HABIDAT_DK_ADMIN_USERNAME=admin
+      - HABIDAT_DK_ADMIN_PASSWORD={{ config.adminPassword }}      
       - HABIDAT_DK_PROJECT_ID={{ config.projectId }}
       - HABIDAT_DK_ADMIN_USERNAME=admin
       - HABIDAT_DK_PORT_HTTP=8080

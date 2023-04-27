@@ -27,10 +27,12 @@ try:
 	if 'HABIDAT_DK_ADD_DOCKER_NETWORK' in os.environ and os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK'] != '':
 		addDockerNetwork = os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK']
 
+	adminPassword = secrets.token_urlsafe(8)
 
 	config = {
 		"projectId": sys.argv[1],
 		"adminEmail": sys.argv[2],
+		"adminPassword": adminPassword,
 		"mysqlRootPassword": secrets.token_hex(20),
 		"mysqlPassword": secrets.token_hex(20),
 		"proxyNetwork": proxyNetwork,
@@ -44,6 +46,7 @@ try:
 		os.makedirs(projectPath)
 	
 	log.info('Generate project site %s' % config['projectId'])
+	log.info('admin user: ' + sys.argv[2] + ', password: ' + adminPassword)
 	template = env.get_template('docker-compose.project.yml')
 	filename = projectPath + '/docker-compose.yml'
 	template.stream(config=config).dump(filename)
