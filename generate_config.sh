@@ -4,5 +4,5 @@ set -e
 source settings.env
 
 echo "Generate nginx config..."
-docker-compose exec -p $HABIDAT_DK_CONTAINER_PREFIX nginx python3 scripts/generate_config.py
+docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
 
