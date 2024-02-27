@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+import logging
+import os
+import secrets
+import sys
+
 from jinja2 import Environment, FileSystemLoader
-import sys, os, logging, secrets
 
 try: 
 
@@ -27,6 +31,10 @@ try:
 	if 'HABIDAT_DK_ADD_DOCKER_NETWORK' in os.environ and os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK'] != '':
 		addDockerNetwork = os.environ['HABIDAT_DK_ADD_DOCKER_NETWORK']
 
+	faqUrl = ''
+	if 'HABIDAT_DK_FAQ_URL' in os.environ and os.environ['HABIDAT_DK_FAQ_URL'] != '':
+		faqUrl = os.environ['HABIDAT_DK_FAQ_URL']
+
 	adminPassword = secrets.token_urlsafe(8)
 
 	config = {
@@ -37,7 +45,8 @@ try:
 		"mysqlPassword": secrets.token_hex(20),
 		"proxyNetwork": proxyNetwork,
 		"containerPrefix": containerPrefix,
-		"addDockerNetwork": addDockerNetwork
+		"addDockerNetwork": addDockerNetwork,
+		"faqUrl": faqUrl
 	}
 	
 	projectPath = 'projects/' +  config['projectId']
