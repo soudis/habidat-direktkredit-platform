@@ -10,7 +10,7 @@ usage(){
 
 [[ $# -lt 1 ]] && usage
 
-rm admin_emails.txt
+rm -f admin_emails.txt
 
 if [[ $1 == "all" ]]
 then
