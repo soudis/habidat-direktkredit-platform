@@ -18,7 +18,7 @@ then
 	cd projects
 	for project in * ; do
 		cd ..
-		./execute_sql.sh $1 "select email from admin" | grep @ >> ../../admin_emails.txt
+		./execute_sql.sh $project "select email from admin" | grep @ >> ../../admin_emails.txt
 		cd projects
 	done
 	cd ..
