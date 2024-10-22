@@ -18,7 +18,7 @@ if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	esac
 
 	domain_args="-d $3"
-	docker-compose run --rm --entrypoint "\
+	docker compose run --rm --entrypoint "\
 	  certbot certonly --webroot -w /var/www/certbot \
 	    $email_arg \
 	    $domain_args \
@@ -27,7 +27,7 @@ if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	if [[ $# -gt 3 ]]; then
 		for domain in "${@:4}"; do
 		  	domain_args="-d $domain"
-			docker-compose run --rm --entrypoint "\
+			docker compose run --rm --entrypoint "\
 			  certbot certonly --webroot -w /var/www/certbot \
 			    $email_arg \
 			    $domain_args \
@@ -51,5 +51,5 @@ else
 	echo "LETSENCRYPT_HOST=$DOMAINS" >> domains.env
 fi
 
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d 
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d 
 

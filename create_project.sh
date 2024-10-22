@@ -14,19 +14,19 @@ export HABIDAT_DK_PROXY_NETWORK=$HABIDAT_DK_PROXY_NETWORK
 export HABIDAT_DK_CONTAINER_PREFIX=$HABIDAT_DK_CONTAINER_PREFIX
 export HABIDAT_DK_ADD_DOCKER_NETWORK=$HABIDAT_DK_ADD_DOCKER_NETWORK
 
-echo "Generating docker-compose.yml..."
+echo "Generating docker compose.yml..."
 python3 scripts/generate_project_compose.py $1 $2
 
 cd projects/$1
 
 echo "Pulling docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 pull
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 pull
 
 echo "Creating database docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d db
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d db
 sleep 10
 echo "Creating web app docker container..."
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d web
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 up -d web
 
 cd ../..
 
@@ -38,7 +38,7 @@ if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	esac
 
 	domain_args="-d $3"
-	docker-compose run --rm --entrypoint "\
+	docker compose run --rm --entrypoint "\
 	  certbot certonly --webroot -w /var/www/certbot \
 	    $email_arg \
 	    $domain_args \
@@ -47,7 +47,7 @@ if [ ! -z $HABIDAT_DK_CERTBOT_SERVICE ];then
 	if [[ $# -gt 3 ]]; then
 		for domain in "${@:4}"; do
 		  	domain_args="-d $domain"
-			docker-compose run --rm --entrypoint "\
+			docker compose run --rm --entrypoint "\
 			  certbot certonly --webroot -w /var/www/certbot \
 			    $email_arg \
 			    $domain_args \
@@ -78,5 +78,5 @@ else
 	echo "LETSENCRYPT_HOST=$DOMAINS" >> domains.env
 fi
 
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d 
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX up -d 
 

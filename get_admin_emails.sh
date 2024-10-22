@@ -4,7 +4,7 @@ set -e
 source settings.env
 
 usage(){
-	echo "Usage: $0 <Project ID or all>"
+	echo "Usage: $0 <Project ID or all> [<Project ID to exclude>]"
 	exit 1
 }
 
@@ -14,16 +14,17 @@ rm -f admin_emails.txt
 
 if [[ $1 == "all" ]]
 then
-	echo "get admin email addresses for all projects..."
 	cd projects
 	for project in * ; do
-		cd ..
-		./execute_sql.sh $project "select email from admin" | grep @ >> ../../admin_emails.txt
-		cd projects
+	    if [ "$2" != "$project" ]
+	    then
+	        cd ..
+			./execute_sql.sh $project "select email from admin" | grep @ >> admin_emails.txt
+			cd projects
+	    fi		
 	done
 	cd ..
-	sort admin_emails.txt | uniq > admin_emails.txt
-	echo "saved email addresses to admin_emails.txt"
+	sort -u admin_emails.txt 
 else
   ./execute_sql.sh $1 "select email from admin" | grep @
 fi

@@ -13,7 +13,7 @@ usage(){
 docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/delete_project.py $1
 
 cd projects/$1
-docker-compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 down -v
+docker compose -p $HABIDAT_DK_CONTAINER_PREFIX-$1 down -v
 cd ../../
 
 docker exec $HABIDAT_DK_PROXY_CONTAINER python3 scripts/generate_config.py
