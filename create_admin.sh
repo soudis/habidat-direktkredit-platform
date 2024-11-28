@@ -4,7 +4,7 @@ set -e
 source settings.env
 
 usage(){
-	echo "Usage: $0 <Project ID> 
+	echo "Usage: $0 <Project ID> <Email>"
 	exit 1
 }
 
